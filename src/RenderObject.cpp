@@ -22,23 +22,27 @@ using namespace engine;
  *  
  * @param filePath the path to the file that should be the source for the texture of the object
 */
-RenderObject::RenderObject(std::string filePath) {
+RenderObject::RenderObject(std::string* filePath) {
 
     texture = nullptr;
     rotatePoint = nullptr;
     clip = nullptr;
+    position = nullptr;
     alignment = CENTER;
     flip = SDL_FLIP_NONE;
     rotateAngle = 0;
+    hidden = false;
 
-    surface = IMG_Load(filePath.c_str());
+    if(filePath != nullptr) {
 
-    position = new SDL_Rect;
-    position->x = 0;
-    position->y = 0;
-    position->w = surface->w;
-    position->h = surface->h;
+        surface = IMG_Load(filePath->c_str());
 
+        position = new SDL_Rect;
+        position->x = 0;
+        position->y = 0;
+        position->w = surface->w;
+        position->h = surface->h;
+    }
 
 }
 
@@ -58,11 +62,24 @@ RenderObject::RenderObject(std::string filePath) {
 */
 void RenderObject::setPosition(int x, int y, int w = -1, int h = -1) {
 
+
+    int oldWidth = 0;
+    int oldHeight = 0;
+    if(position != nullptr) {
+        oldWidth = position->w;
+        oldHeight = position->h;
+        delete position;
+    } 
+
+    position = new SDL_Rect;
+
     position->x = x;
     position->y = y;
 
     if(w > 0) position->w = w;
+    else position->w = oldWidth;
     if(h > 0) position->h = h;
+    else position->h = oldHeight;
 
 }
 
@@ -194,6 +211,27 @@ SDL_RendererFlip RenderObject::getFlip() {
 */
 RenderAlignment RenderObject::getAlignment() {
     return alignment;
+}
+
+/**
+ * Check to see if the RenderObject is hidden. When the RenderObject is hidden, it cannot be rendered.
+*/
+bool RenderObject::isHidden() {
+    return hidden;
+}
+
+/**
+ * Set the RenderObject as "hidden". When the RenderObject is hidden, it cannot be rendered.
+*/
+void RenderObject::hide() {
+    hidden = true;
+}
+
+/**
+ * Set the RenderObject's hidden flag as false so the object is visible. When the RenderObject is hidden, it cannot be rendered.
+*/
+void RenderObject::unhide() {
+    hidden = false;
 }
 
 /**

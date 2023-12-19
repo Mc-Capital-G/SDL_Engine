@@ -13,7 +13,6 @@
 #include "TextBox.h"
 #include "Level.h"
 #include "LevelManager.h"
-#include "InputHandler.h"
 #include "Timer.h"
 #include "SoundManager.h"
 
