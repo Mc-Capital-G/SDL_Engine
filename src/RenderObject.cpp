@@ -22,7 +22,7 @@ using namespace engine;
  *  
  * @param filePath the path to the file that should be the source for the texture of the object
 */
-RenderObject::RenderObject(std::string* filePath) {
+RenderObject::RenderObject(std::string filePath) {
 
     texture = nullptr;
     rotatePoint = nullptr;
@@ -33,16 +33,13 @@ RenderObject::RenderObject(std::string* filePath) {
     rotateAngle = 0;
     hidden = false;
 
-    if(filePath != nullptr) {
+    surface = IMG_Load(filePath.c_str());
 
-        surface = IMG_Load(filePath->c_str());
-
-        position = new SDL_Rect;
-        position->x = 0;
-        position->y = 0;
-        position->w = surface->w;
-        position->h = surface->h;
-    }
+    position = new SDL_Rect;
+    position->x = 0;
+    position->y = 0;
+    position->w = surface->w;
+    position->h = surface->h;
 
 }
 
@@ -60,7 +57,7 @@ RenderObject::RenderObject(std::string* filePath) {
  * @param w new width - negative values will not change the width
  * @param h new height - negative values will not change the height
 */
-void RenderObject::setPosition(int x, int y, int w = -1, int h = -1) {
+void RenderObject::setPosition(int x, int y, int w, int h) {
 
 
     int oldWidth = 0;
