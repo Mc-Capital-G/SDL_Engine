@@ -14,6 +14,7 @@
 
 #include "RenderObject.h"
 #include "Vector2.h"
+#include "Timer.h"
 
 namespace engine {
 
