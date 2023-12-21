@@ -54,7 +54,7 @@ RenderObject::RenderObject(std::string filePath) {
  * 
  * Can also change the width and height of the object, but by default will not touch it, 
  * so passing values to w and h is not required. Any negative number passed to w or h will also not 
- * affect object width/height respectively.
+ * affect object width/height respectively. This function also calculates position based on the object's alignment
  * 
  * @param x new x position
  * @param y new y position
@@ -63,13 +63,38 @@ RenderObject::RenderObject(std::string filePath) {
 */
 void RenderObject::setPosition(int x, int y, int w, int h) {
 
-    position.x = x;
-    position.y = y;
-
+    // set values from parameters
     if(w > 0) position.w = w;
     else position.w = width;
     if(h > 0) position.h = h;
     else position.h = height;
+
+    position.x = x;
+    position.y = y;
+
+    // offset x and y based on the alignment of the object
+    switch(alignment) {
+        case TOP_LEFT:
+            position.x = x;
+            position.y = y;
+            break;
+        case TOP_RIGHT:
+            position.x += position.w;
+            position.y = y;
+            break;
+        case CENTER:
+            position.x -= position.w/2;
+            position.y -= position.h/2;
+            break;
+        case BOTTOM_LEFT:
+            position.x = x;
+            position.y += position.h;
+            break;
+        case BOTTOM_RIGHT:
+            position.x += position.w;
+            position.y += position.h;
+            break;
+    }
    
 }
 
