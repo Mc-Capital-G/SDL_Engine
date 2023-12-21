@@ -14,7 +14,7 @@
 using namespace engine;
 
 /**
- * Initialize the level
+ * Construct the level object
  * 
  * Level.start() will actually load all the level data such as objects, backgrounds, etc.
 */
@@ -24,19 +24,25 @@ Level::Level(std::string file) {
 }
 
 /**
+ * Initialize the level by loading game objects from storage and setting up the level.
+*/
+void Level::init() {
+    
+}
+
+/**
  * Run the level.
  * 
  * Updates game objects and manages the level's runtime
  * 
  * @return if the level was completed or not
 */
-bool Level::run() {
+void Level::run() {
     
     for(int i = 0; i < objectList.size(); i++) {
         objectList[i]->update();
     }
 
-    return complete;
 }
 
 /**

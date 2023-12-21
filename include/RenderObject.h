@@ -36,9 +36,9 @@ namespace engine {
 
             SDL_Texture* getTexture();
             SDL_Surface* getSurface();
-            SDL_Rect* getPosition();
-            SDL_Rect* getClip();
-            SDL_Point* getRotatePoint();
+            SDL_Rect getPosition();
+            SDL_Rect getClip();
+            SDL_Point getRotatePoint();
             SDL_RendererFlip getFlip();
             double getAngle();
             RenderAlignment getAlignment();
@@ -46,7 +46,7 @@ namespace engine {
             bool isHidden();
             
             void setPosition(int x, int y, int w = -1, int h = -1);
-            void setClip(uint x, uint y, uint w, uint h);
+            void setClip(uint x, uint y);
             void setAlignment(RenderAlignment newAlignment);
             void resetClip();
             void setTexture(SDL_Texture* tex);
@@ -57,13 +57,16 @@ namespace engine {
             
             SDL_Texture* texture;
             SDL_Surface* surface;
-            SDL_Rect* position;
-            SDL_Rect* clip;
-            SDL_Point* rotatePoint;
+            SDL_Rect position;
+            SDL_Rect clip;
+            SDL_Point rotatePoint;
             SDL_RendererFlip flip;
             double rotateAngle;
             RenderAlignment alignment;
             bool hidden;
+
+            uint width;
+            uint height;
                 
     };
 

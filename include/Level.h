@@ -22,9 +22,10 @@ namespace engine {
         public:
             Level(std::string file);
             ~Level();
-            bool run();
-            void start();
+            void run();
+            void init();
             void end();
+            bool isComplete();
 
         private:
             std::vector<GameObject*> objectList;

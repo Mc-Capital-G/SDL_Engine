@@ -25,9 +25,6 @@ using namespace engine;
 RenderObject::RenderObject(std::string filePath) {
 
     texture = nullptr;
-    rotatePoint = nullptr;
-    clip = nullptr;
-    position = nullptr;
     alignment = CENTER;
     flip = SDL_FLIP_NONE;
     rotateAngle = 0;
@@ -35,11 +32,18 @@ RenderObject::RenderObject(std::string filePath) {
 
     surface = IMG_Load(filePath.c_str());
 
-    position = new SDL_Rect;
-    position->x = 0;
-    position->y = 0;
-    position->w = surface->w;
-    position->h = surface->h;
+    width = surface->w;
+    height = surface->h;
+
+    position.x = 0;
+    position.y = 0;
+    position.w = width;
+    position.h = height;
+
+    clip.x = 0;
+    clip.y = 0;
+    clip.w = width;
+    clip.h = height;
 
 }
 
@@ -59,25 +63,14 @@ RenderObject::RenderObject(std::string filePath) {
 */
 void RenderObject::setPosition(int x, int y, int w, int h) {
 
+    position.x = x;
+    position.y = y;
 
-    int oldWidth = 0;
-    int oldHeight = 0;
-    if(position != nullptr) {
-        oldWidth = position->w;
-        oldHeight = position->h;
-        delete position;
-    } 
-
-    position = new SDL_Rect;
-
-    position->x = x;
-    position->y = y;
-
-    if(w > 0) position->w = w;
-    else position->w = oldWidth;
-    if(h > 0) position->h = h;
-    else position->h = oldHeight;
-
+    if(w > 0) position.w = w;
+    else position.w = width;
+    if(h > 0) position.h = h;
+    else position.h = height;
+   
 }
 
 /**
@@ -89,25 +82,20 @@ void RenderObject::setPosition(int x, int y, int w, int h) {
  * 
  * @param x new x position 
  * @param y new y position
- * @param w new width
- * @param h new height
 */
-void RenderObject::setClip(uint x, uint y, uint w, uint h) {
+void RenderObject::setClip(uint x, uint y) {
 
-    if(clip == nullptr) clip = new SDL_Rect;
-
-    clip->x = x;
-    clip->y = y;
-    clip->w = w;
-    clip->h = h;
+    clip.x = x;
+    clip.y = y;
 
 }
 
 /**
- * Reset the RenderObject clip to null
+ * Reset the RenderObject clip to 
 */
 void RenderObject::resetClip() {
-    if(clip != nullptr) delete clip;
+    clip.x = 0;
+    clip.y = 0;
 }
 
 /**
@@ -126,7 +114,7 @@ void RenderObject::setTexture(SDL_Texture* tex) {
 
     texture = tex;
 
-    if(surface == nullptr) SDL_FreeSurface(surface);
+    if(surface != nullptr) SDL_FreeSurface(surface);
 
 }
 
@@ -160,7 +148,7 @@ SDL_Surface* RenderObject::getSurface() {
  * The clip defines what section of the objects texture should be displayed. 
  * If it is NULL, the full texture will be displayed. 
 */
-SDL_Rect* RenderObject::getClip() {
+SDL_Rect RenderObject::getClip() {
     return clip;
 }
 
@@ -169,7 +157,7 @@ SDL_Rect* RenderObject::getClip() {
  * 
  * The position defines where on the screen the object will be rendered.
 */
-SDL_Rect* RenderObject::getPosition() {
+SDL_Rect RenderObject::getPosition() {
     return position;
 }
 
@@ -178,7 +166,7 @@ SDL_Rect* RenderObject::getPosition() {
  * 
  * rotatePoint defines where the point that the RenderObject will be rotated around if it is being rotated
 */
-SDL_Point* RenderObject::getRotatePoint() {
+SDL_Point RenderObject::getRotatePoint() {
     return rotatePoint;
 }
 
@@ -240,8 +228,5 @@ RenderObject::~RenderObject() {
     
     if(texture != nullptr) SDL_DestroyTexture(texture);
     if(surface != nullptr) SDL_FreeSurface(surface);
-    if(rotatePoint != nullptr) delete rotatePoint;
-    if(position != nullptr) delete position;
-    if(clip != nullptr) delete clip;
 
 }

@@ -12,7 +12,7 @@
 
 namespace engine {
 
-    class TextBox : RenderObject {
+    class TextBox : public RenderObject {
 
         public:
             TextBox(std::string displayText);
