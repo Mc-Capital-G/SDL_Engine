@@ -154,6 +154,13 @@ void RenderObject::setAlignment(RenderAlignment newAlignment) {
 }
 
 /**
+ * Set the object's flip status
+*/
+void RenderObject::setFlip(SDL_RendererFlip __flip) {
+    flip = __flip;
+}
+
+/**
  * Get the RenderObject's texture
  * */
 SDL_Texture* RenderObject::getTexture() {

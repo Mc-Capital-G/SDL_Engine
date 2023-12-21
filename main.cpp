@@ -24,11 +24,24 @@ int main(int argc, char** argv) {
                     mPress = false;
                     break;
                 case SDL_KEYDOWN:
-                    if(e.key.keysym.scancode == SDL_SCANCODE_1) test.setAlignment(engine::RenderAlignment::TOP_LEFT);
-                    if(e.key.keysym.scancode == SDL_SCANCODE_2) test.setAlignment(engine::RenderAlignment::TOP_RIGHT);
-                    if(e.key.keysym.scancode == SDL_SCANCODE_3) test.setAlignment(engine::RenderAlignment::CENTER);
-                    if(e.key.keysym.scancode == SDL_SCANCODE_4) test.setAlignment(engine::RenderAlignment::BOTTOM_LEFT);
-                    if(e.key.keysym.scancode == SDL_SCANCODE_5) test.setAlignment(engine::RenderAlignment::BOTTOM_RIGHT);
+                    switch(e.key.keysym.scancode) {
+                        case SDL_SCANCODE_1:
+                            test.setAlignment(engine::RenderAlignment::TOP_LEFT);
+                            break;
+                        case SDL_SCANCODE_2:
+                            test.setAlignment(engine::RenderAlignment::TOP_RIGHT);
+                            break;
+                        case SDL_SCANCODE_3:
+                            test.setAlignment(engine::RenderAlignment::CENTER);
+                            break;
+                        case SDL_SCANCODE_4:
+                            test.setAlignment(engine::RenderAlignment::BOTTOM_LEFT);
+                            break;
+                        case SDL_SCANCODE_5:
+                            test.setAlignment(engine::RenderAlignment::BOTTOM_RIGHT);
+                            break;
+                    }
+                    break;
             }
         }
 

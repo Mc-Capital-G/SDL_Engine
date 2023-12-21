@@ -46,6 +46,20 @@ void Level::run() {
 }
 
 /**
+ * Stop the level - may not be needed, will be removed later if that is the case
+*/
+void Level::end() {
+
+}
+
+/**
+ * See if the level has been completed or not.
+*/
+bool Level::isComplete() {
+    return complete;
+}
+
+/**
  * Destruct the level
 */
 Level::~Level() {

@@ -50,6 +50,7 @@ namespace engine {
             void setAlignment(RenderAlignment newAlignment);
             void resetClip();
             void setTexture(SDL_Texture* tex);
+            void setFlip(SDL_RendererFlip __flip);
             void hide();
             void unhide();
             
