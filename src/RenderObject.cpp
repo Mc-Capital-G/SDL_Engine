@@ -79,7 +79,7 @@ void RenderObject::setPosition(int x, int y, int w, int h) {
             position.y = y;
             break;
         case TOP_RIGHT:
-            position.x += position.w;
+            position.x -= position.w;
             position.y = y;
             break;
         case CENTER:
@@ -88,11 +88,11 @@ void RenderObject::setPosition(int x, int y, int w, int h) {
             break;
         case BOTTOM_LEFT:
             position.x = x;
-            position.y += position.h;
+            position.y -= position.h;
             break;
         case BOTTOM_RIGHT:
-            position.x += position.w;
-            position.y += position.h;
+            position.x -= position.w;
+            position.y -= position.h;
             break;
     }
    
