@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.26.0)
 
-set(GLOBAL PROPERTY CXX_STANDARD C++17)
-
 project(SDL_Engine)
 
 find_package(SDL2 REQUIRED)

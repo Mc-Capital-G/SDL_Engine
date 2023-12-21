@@ -239,7 +239,7 @@ void RenderObject::unhide() {
 RenderObject::~RenderObject() {
     
     if(texture != nullptr) SDL_DestroyTexture(texture);
-    if(surface == nullptr) SDL_FreeSurface(surface);
+    if(surface != nullptr) SDL_FreeSurface(surface);
     if(rotatePoint != nullptr) delete rotatePoint;
     if(position != nullptr) delete position;
     if(clip != nullptr) delete clip;

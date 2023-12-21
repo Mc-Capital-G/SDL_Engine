@@ -31,7 +31,7 @@ namespace engine {
     class RenderObject {
             
         public:
-            RenderObject(std::string filePath = nullptr);
+            RenderObject(std::string filePath);
             virtual ~RenderObject();
 
             SDL_Texture* getTexture();

@@ -15,7 +15,8 @@ namespace engine {
 
     template <typename T> class Vector2 {
         public:
-            Vector2(T x, T y);
+            Vector2() = default;
+            Vector2(T X, T Y);
             T x;
             T y;
     };

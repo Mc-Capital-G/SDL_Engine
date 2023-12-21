@@ -18,10 +18,10 @@
 
 namespace engine {
 
-    class GameObject : RenderObject {
+    class GameObject : public RenderObject {
 
         public:
-            GameObject();
+            GameObject(std::string filePath);
             virtual ~GameObject();
             virtual void update();
             bool isCollidable();

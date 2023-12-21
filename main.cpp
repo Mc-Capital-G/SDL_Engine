@@ -4,7 +4,7 @@
 int main(int argc, char** argv) {
 
     engine::Window GameWindow("Game");
-    engine::RenderObject TestRender("../IMG_3407.jpeg");
+    engine::GameObject test("../IMG_3407.jpeg");
 
     SDL_Event e;
     bool mousepress = false;
@@ -19,10 +19,10 @@ int main(int argc, char** argv) {
         int x, y;
         SDL_GetMouseState(&x, &y);
 
-        if(mousepress) TestRender.setPosition(x, y);
+        if(mousepress) test.setPosition(x, y);
 
         GameWindow.clearScreen();
-        GameWindow.render(&TestRender);
+        GameWindow.render(&test);
         GameWindow.renderPresent();
 
     }
