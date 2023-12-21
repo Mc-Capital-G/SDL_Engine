@@ -14,28 +14,40 @@
 
 using namespace engine;
 
+/**
+ * Initialize the GameObject. All pointers are initialized as nullptr.
+ * @param filePath just forwards to the RenderObject's constructor
+*/
 GameObject::GameObject(std::string filePath) : RenderObject(filePath) {
 
     hitbox = nullptr;
 
 }
 
-void GameObject::update() {
-
-    std::cout << "This is the default definition of GameObject::update running!" << std::endl;
-
-}
-
+/**
+ * Get the object's hitbox
+*/
 SDL_Rect* GameObject::getHitbox() {
     return hitbox;
 }
 
-bool GameObject::isCollidable() {
+/**
+ * Get the object's velocity.
+*/
+Vector2<int> GameObject::getVelocity() {
+    return velocity;
+}
+
+/**
+ * See if the GameObject has collision
+*/
+bool GameObject::hasCollision() {
     return collision;
 }
 
-
-
+/**
+ * Destroy the GameObject
+*/
 GameObject::~GameObject() {
 
     if(hitbox != nullptr) delete hitbox;

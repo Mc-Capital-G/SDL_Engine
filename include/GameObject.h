@@ -23,9 +23,10 @@ namespace engine {
         public:
             GameObject(std::string filePath);
             virtual ~GameObject();
-            virtual void update();
-            bool isCollidable();
+            virtual void update() = 0;
+            bool hasCollision();
             SDL_Rect* getHitbox();
+            Vector2<int> getVelocity();
         private:
             bool collision;
             SDL_Rect* hitbox;
