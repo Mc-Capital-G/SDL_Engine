@@ -21,6 +21,43 @@ using namespace engine;
  * window object for rendering, where the surface will then be converted and destroyed.
  *  
  * @param filePath the path to the file that should be the source for the texture of the object
+ * @param __sWidth explicity declares the width of the texture for the object, used for children that require such a definition
+ * @param __sHeight explicity declares the height of the texture for the object, used for children that require such a definition
+*/
+RenderObject::RenderObject(std::string filePath, uint __sWidth, uint __sHeight) {
+
+    texture = nullptr;
+    alignment = CENTER;
+    flip = SDL_FLIP_NONE;
+    rotateAngle = 0;
+    hidden = false;
+
+    surface = IMG_Load(filePath.c_str());
+
+    width = __sWidth;
+    height = __sHeight;
+
+    position.x = 0;
+    position.y = 0;
+    position.w = width;
+    position.h = height;
+
+    clip.x = 0;
+    clip.y = 0;
+    clip.w = width;
+    clip.h = height;
+
+}
+
+/**
+ * Initialize the RenderObject
+ * 
+ * Most values will default to NULL or zero for consistency, and can be changed later with other object member functions
+ * An SDL_Surface is initially created upon object initialization, while the SDL_Texture is initialized as nullptr. This 
+ * is because we need a renderer to generate a texture, and we will generate the texture when we eventually give it to a 
+ * window object for rendering, where the surface will then be converted and destroyed.
+ *  
+ * @param filePath the path to the file that should be the source for the texture of the object
 */
 RenderObject::RenderObject(std::string filePath) {
 
@@ -51,26 +88,12 @@ RenderObject::RenderObject(std::string filePath) {
  * Change the position of the RenderObject. 
  * 
  * The position defines where on the screen the object will be rendered.
- * 
- * Can also change the width and height of the object, but by default will not touch it, 
- * so passing values to w and h is not required. Any negative number passed to w or h will also not 
- * affect object width/height respectively. This function also calculates position based on the object's alignment
+ * This function also calculates position based on the object's alignment
  * 
  * @param x new x position
  * @param y new y position
- * @param w new width - negative values will not change the width
- * @param h new height - negative values will not change the height
 */
-void RenderObject::setPosition(int x, int y, int w, int h) {
-
-    // set values from parameters
-    if(w > 0) position.w = w;
-    else position.w = width;
-    if(h > 0) position.h = h;
-    else position.h = height;
-
-    position.x = x;
-    position.y = y;
+void RenderObject::setPosition(int x, int y) {
 
     // offset x and y based on the alignment of the object
     switch(alignment) {
@@ -79,23 +102,33 @@ void RenderObject::setPosition(int x, int y, int w, int h) {
             position.y = y;
             break;
         case TOP_RIGHT:
-            position.x -= position.w;
+            position.x = x - position.w;
             position.y = y;
             break;
         case CENTER:
-            position.x -= position.w/2;
-            position.y -= position.h/2;
+            position.x = x - position.w/2;
+            position.y = y - position.h/2;
             break;
         case BOTTOM_LEFT:
             position.x = x;
-            position.y -= position.h;
+            position.y = y - position.h;
             break;
         case BOTTOM_RIGHT:
-            position.x -= position.w;
-            position.y -= position.h;
+            position.x = x - position.w;
+            position.y = y - position.h;
             break;
     }
    
+}
+
+/** 
+ * Set the rendering scale for the object. 
+ * These values cannot be negative 
+*/
+void RenderObject::setScale(uint w, uint h) {
+    
+    position.w = w;
+    position.h = h;
 }
 
 /**

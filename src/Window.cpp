@@ -7,6 +7,7 @@
  * @cite Lazy Foo Productions 
 */
 
+#include <iostream>
 #include "Window.h"
 
 using namespace engine;
@@ -108,8 +109,8 @@ Window::~Window() {
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 
-	SDL_Quit();
 	IMG_Quit();
 	Mix_Quit();
 	TTF_Quit();
+	SDL_Quit();
 }

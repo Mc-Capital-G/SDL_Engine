@@ -22,14 +22,14 @@ namespace engine {
 
         public:
             GameObject(std::string filePath);
-            virtual ~GameObject();
+            GameObject(std::string filePath, uint __sWidth, uint __sHeight);
             virtual void update() = 0;
             bool hasCollision();
-            SDL_Rect* getHitbox();
+            SDL_Rect getHitbox();
             Vector2<int> getVelocity();
-        private:
+
             bool collision;
-            SDL_Rect* hitbox;
+            SDL_Rect hitbox;
             Vector2<int> velocity;
             Vector2<int> acceleration;
             Timer timer;

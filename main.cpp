@@ -5,7 +5,10 @@
 int main(int argc, char** argv) {
 
     engine::Window GameWindow("Game");
-    engine::RenderObject test("../IMG_3407.jpeg");
+    engine::Entity* test = new engine::Entity("../IMG_3407.jpeg", 10, 459, 394, 0);
+
+    test->setScale(100, 100);
+    test->setAlignment(engine::RenderAlignment::TOP_LEFT);
 
     SDL_Event e;
     bool mPress = false;
@@ -26,34 +29,61 @@ int main(int argc, char** argv) {
                 case SDL_KEYDOWN:
                     switch(e.key.keysym.scancode) {
                         case SDL_SCANCODE_1:
-                            test.setAlignment(engine::RenderAlignment::TOP_LEFT);
+                            test->setAlignment(engine::RenderAlignment::TOP_LEFT);
                             break;
                         case SDL_SCANCODE_2:
-                            test.setAlignment(engine::RenderAlignment::TOP_RIGHT);
+                            test->setAlignment(engine::RenderAlignment::TOP_RIGHT);
                             break;
                         case SDL_SCANCODE_3:
-                            test.setAlignment(engine::RenderAlignment::CENTER);
+                            test->setAlignment(engine::RenderAlignment::CENTER);
                             break;
                         case SDL_SCANCODE_4:
-                            test.setAlignment(engine::RenderAlignment::BOTTOM_LEFT);
+                            test->setAlignment(engine::RenderAlignment::BOTTOM_LEFT);
                             break;
                         case SDL_SCANCODE_5:
-                            test.setAlignment(engine::RenderAlignment::BOTTOM_RIGHT);
+                            test->setAlignment(engine::RenderAlignment::BOTTOM_RIGHT);
+                            break;
+                        case SDL_SCANCODE_D:
+                            test->velocity.x += 1;
+                            break;
+                        case SDL_SCANCODE_A:
+                            test->velocity.x -= 1;
                             break;
                     }
                     break;
+                case SDL_KEYUP:
+                    switch(e.key.keysym.scancode) {
+                        case SDL_SCANCODE_D:
+                            test->velocity.x -= 1;
+                            break;
+                        case SDL_SCANCODE_A:
+                            test->velocity.x += 1;
+                            break;
+                    }
             }
         }
-
+        
         int x, y;
         SDL_GetMouseState(&x, &y);
-        if(mPress) test.setPosition(x, y);
+        if(mPress) test->setPosition(x, y);
+
+        test->update();
 
         GameWindow.clearScreen();
-        GameWindow.render(&test);
+        GameWindow.render(test);
         GameWindow.renderPresent();
 
     }
+
+    engine::RenderObject* what = new engine::RenderObject("../IMG_3407.jpeg");
+
+    delete what;
+
+    std::cout << "deleted what" << std::endl;
+    
+    delete test;
+
+    std::cout << "deleted test" << std::endl;
 
     return 0;
 }

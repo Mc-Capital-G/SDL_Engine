@@ -9,6 +9,7 @@
 #include "Window.h"
 #include "RenderObject.h"
 #include "GameObject.h"
+#include "Entity.h"
 #include "Vector2.h"
 #include "Menu.h"
 #include "Button.h"

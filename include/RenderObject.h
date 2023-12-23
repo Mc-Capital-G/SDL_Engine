@@ -31,8 +31,9 @@ namespace engine {
     class RenderObject {
             
         public:
+            RenderObject(std::string filePath, uint __sWidth, uint __sHeight);
             RenderObject(std::string filePath);
-            virtual ~RenderObject();
+            ~RenderObject();
 
             SDL_Texture* getTexture();
             SDL_Surface* getSurface();
@@ -45,7 +46,8 @@ namespace engine {
 
             bool isHidden();
             
-            void setPosition(int x, int y, int w = -1, int h = -1);
+            void setPosition(int x, int y);
+            void setScale(uint w, uint h);
             void setClip(uint x, uint y);
             void setAlignment(RenderAlignment newAlignment);
             void resetClip();
@@ -53,11 +55,12 @@ namespace engine {
             void setFlip(SDL_RendererFlip __flip);
             void hide();
             void unhide();
+
+            SDL_Texture* texture;
+            SDL_Surface* surface;
             
         private:
             
-            SDL_Texture* texture;
-            SDL_Surface* surface;
             SDL_Rect position;
             SDL_Rect clip;
             SDL_Point rotatePoint;
