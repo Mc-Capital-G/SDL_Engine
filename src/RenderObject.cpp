@@ -181,7 +181,11 @@ void RenderObject::setTexture(SDL_Texture* tex) {
 
     texture = tex;
 
-    if(surface != nullptr) SDL_FreeSurface(surface);
+    if(surface != nullptr) {
+        // SDL_FREESURFACE LEAVES A HANGING POINTER ! ALWAYS SET TO NULLPTR OR SEGFAULT WILL HAPPEN
+        SDL_FreeSurface(surface);
+        surface = nullptr;
+    }
 
 }
 
@@ -305,7 +309,13 @@ void RenderObject::unhide() {
 */
 RenderObject::~RenderObject() {
     
-    if(texture != nullptr) SDL_DestroyTexture(texture);
-    if(surface != nullptr) SDL_FreeSurface(surface);
+    if(texture != nullptr) {
+        SDL_DestroyTexture(texture);
+        texture = nullptr;
+    }
+    if(surface != nullptr) {
+        SDL_FreeSurface(surface);
+        surface = nullptr;
+    }
 
 }

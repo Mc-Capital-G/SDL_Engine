@@ -17,6 +17,7 @@
 #include <SDL_ttf.h>
 
 #include <string>
+#include <iostream>
 
 namespace engine {
 
@@ -33,7 +34,7 @@ namespace engine {
         public:
             RenderObject(std::string filePath, uint __sWidth, uint __sHeight);
             RenderObject(std::string filePath);
-            ~RenderObject();
+            virtual ~RenderObject();
 
             SDL_Texture* getTexture();
             SDL_Surface* getSurface();
