@@ -39,8 +39,11 @@ RenderObject::RenderObject(std::string filePath, uint __sWidth, uint __sHeight) 
 
     position.x = 0;
     position.y = 0;
-    position.w = width;
-    position.h = height;
+
+    target.x = 0;
+    target.y = 0;
+    target.w = width;
+    target.h = height;
 
     clip.x = 0;
     clip.y = 0;
@@ -74,8 +77,11 @@ RenderObject::RenderObject(std::string filePath) {
 
     position.x = 0;
     position.y = 0;
-    position.w = width;
-    position.h = height;
+
+    target.x = 0;
+    target.y = 0;
+    target.w = width;
+    target.h = height;
 
     clip.x = 0;
     clip.y = 0;
@@ -95,27 +101,30 @@ RenderObject::RenderObject(std::string filePath) {
 */
 void RenderObject::setPosition(int x, int y) {
 
+    position.x = x;
+    position.y = y;
+
     // offset x and y based on the alignment of the object
     switch(alignment) {
         case TOP_LEFT:
-            position.x = x;
-            position.y = y;
+            target.x = x;
+            target.y = y;
             break;
         case TOP_RIGHT:
-            position.x = x - position.w;
-            position.y = y;
+            target.x = x - target.w;
+            target.y = y;
             break;
         case CENTER:
-            position.x = x - position.w/2;
-            position.y = y - position.h/2;
+            target.x = x - target.w/2;
+            target.y = y - target.h/2;
             break;
         case BOTTOM_LEFT:
-            position.x = x;
-            position.y = y - position.h;
+            target.x = x;
+            target.y = y - target.h;
             break;
         case BOTTOM_RIGHT:
-            position.x = x - position.w;
-            position.y = y - position.h;
+            target.x = x - target.w;
+            target.y = y - target.h;
             break;
     }
    
@@ -127,8 +136,8 @@ void RenderObject::setPosition(int x, int y) {
 */
 void RenderObject::setScale(uint w, uint h) {
     
-    position.w = w;
-    position.h = h;
+    target.w = w;
+    target.h = h;
 }
 
 /**
@@ -220,10 +229,15 @@ SDL_Rect RenderObject::getClip() {
 /**
  * Get the RenderObject's position
  * 
- * The position defines where on the screen the object will be rendered.
+ * The position defines where on the screen the object "is"
 */
-SDL_Rect RenderObject::getPosition() {
+SDL_Point RenderObject::getPosition() {
     return position;
+}
+
+/** Get the rendering target of the object */
+SDL_Rect RenderObject::getTarget() {
+    return target;
 }
 
 /**

@@ -62,12 +62,12 @@ int main(int argc, char** argv) {
                     }
             }
         }
-        
+
+        test->update();
+
         int x, y;
         SDL_GetMouseState(&x, &y);
         if(mPress) test->setPosition(x, y);
-
-        test->update();
 
         GameWindow.clearScreen();
         GameWindow.render(test);

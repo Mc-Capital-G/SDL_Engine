@@ -75,7 +75,7 @@ void Window::render(RenderObject* obj) {
 	}
 
 	SDL_Rect tClip = obj->getClip();
-	SDL_Rect tTarget = obj->getPosition();
+	SDL_Rect tTarget = obj->getTarget();
 	SDL_Point tRotate = obj->getRotatePoint();
 
 	SDL_RenderCopyEx(renderer, obj->getTexture(), &tClip, &tTarget, obj->getAngle(), &tRotate, obj->getFlip());

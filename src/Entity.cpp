@@ -43,13 +43,13 @@ void Entity::update() {
 */
 void Entity::move() {
 
-    SDL_Rect pos = getPosition();
+    SDL_Point pos = getPosition();
     int x = pos.x;
     int y = pos.y;
 
     int dTime = timer.getTicks();
 
-    setPosition(x + velocity.x * dTime, y + velocity.y * dTime);
+    setPosition(x + (velocity.x * dTime), y + (velocity.y * dTime));
 }
 
 /** Get the entity's health */

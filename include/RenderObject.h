@@ -37,7 +37,8 @@ namespace engine {
 
             SDL_Texture* getTexture();
             SDL_Surface* getSurface();
-            SDL_Rect getPosition();
+            SDL_Point getPosition();
+            SDL_Rect getTarget();
             SDL_Rect getClip();
             SDL_Point getRotatePoint();
             SDL_RendererFlip getFlip();
@@ -61,7 +62,8 @@ namespace engine {
             
         private:
             
-            SDL_Rect position;
+            SDL_Point position;
+            SDL_Rect target;
             SDL_Rect clip;
             SDL_Point rotatePoint;
             SDL_RendererFlip flip;

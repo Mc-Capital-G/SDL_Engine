@@ -22,7 +22,7 @@ using namespace engine;
 */
 GameObject::GameObject(std::string filePath, uint __sWidth, uint __sHeight) : RenderObject(filePath, __sWidth, __sHeight) {
 
-    hitbox = getPosition();
+    hitbox = getTarget();
     velocity.x = 0;
     velocity.y = 0;
 
@@ -34,7 +34,7 @@ GameObject::GameObject(std::string filePath, uint __sWidth, uint __sHeight) : Re
 */
 GameObject::GameObject(std::string filePath) : RenderObject(filePath) {
 
-    hitbox = getPosition();
+    hitbox = getTarget();
     velocity.x = 0;
     velocity.y = 0;
 
