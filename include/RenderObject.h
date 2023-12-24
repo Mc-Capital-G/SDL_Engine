@@ -57,12 +57,11 @@ namespace engine {
             void setFlip(SDL_RendererFlip __flip);
             void hide();
             void unhide();
-
-            SDL_Texture* texture;
-            SDL_Surface* surface;
             
         private:
             
+            SDL_Texture* texture;
+            SDL_Surface* surface;
             SDL_Point position;
             SDL_Rect target;
             SDL_Rect clip;

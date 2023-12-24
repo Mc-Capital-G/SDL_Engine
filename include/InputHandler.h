@@ -19,6 +19,7 @@ namespace engine {
             bool pollInput();
             SDL_Point getMousePosition();
             std::vector<SDL_Scancode> pressedKeys;
+            std::vector<Uint8> mouseEvents;
 
         private:
             SDL_Point mousePosition;

@@ -26,35 +26,56 @@ InputHandler::InputHandler() {
 
 /**
  * Poll all SDL events and save input
+ * Pressed keys are stored separately from mouse presses due to SDL differences. 
+ * This works out anyway because the keyboard and mouse do different things, so we can 
+ * poll them differently using the class more effectively.
 */
 bool InputHandler::pollInput() {
 
     SDL_Event event;
 
-    while(SDL_PollEvent(&event)) {
-        std::vector<SDL_Scancode>::iterator ptr = pressedKeys.begin(); 
+    while(SDL_PollEvent(&event)) { 
+        
+        bool heldInput = false;
+        std::vector<SDL_Scancode>::iterator keyPtr = pressedKeys.begin();
+        std::vector<Uint8>::iterator mousePtr = mouseEvents.begin();
+
         switch(event.type) {
-            case SDL_QUIT:
-                return true;
+
+            case SDL_QUIT: return true;
+
             case SDL_KEYDOWN:
+
+                heldInput = false;
                 for(int i = 0; i < pressedKeys.size(); i++) {
-                    if(pressedKeys[i] == event.key.keysym.scancode) break;
+                    if(pressedKeys[i] == event.key.keysym.scancode) heldInput = true;
                 }
-                pressedKeys.emplace_back(event.key.keysym.scancode);
+                if(!heldInput) pressedKeys.push_back(event.key.keysym.scancode);
                 break;
+
             case SDL_KEYUP:
+                
                 for(int i = 0; i < pressedKeys.size(); i++) {
-                    if(pressedKeys[i] == event.key.keysym.scancode) pressedKeys.erase(ptr + i);
+                    if(pressedKeys[i] == event.key.keysym.scancode) pressedKeys.erase(keyPtr + i);
                 }
                 break;
-            case SDL_MOUSEBUTTONDOWN:
-                switch(event.button.button) {
-                    case SDL_BUTTON_LEFT:
-                        break;
-                    case SDL_BUTTON_RIGHT:
-                        break;
+
+            case SDL_MOUSEBUTTONDOWN: // mouse button was pressed
+                
+                heldInput = false;
+                for(int i = 0; i < mouseEvents.size(); i++) {
+                    if(mouseEvents[i] == event.button.button) heldInput = true;
+                }
+                if(!heldInput) mouseEvents.push_back(event.button.button);
+                break;
+
+            case SDL_MOUSEBUTTONUP: // mouse button was unpressed
+            
+                for(int i = 0; i < mouseEvents.size(); i++) {
+                    if(mouseEvents[i] == event.button.button) mouseEvents.erase(mousePtr + i);
                 }
                 break;
+
         }
     }
 
