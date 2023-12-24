@@ -13,6 +13,7 @@
 #include "Vector2.h"
 #include "Menu.h"
 #include "Button.h"
+#include "InputHandler.h"
 #include "TextBox.h"
 #include "Level.h"
 #include "LevelManager.h"
