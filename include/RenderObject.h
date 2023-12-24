@@ -34,13 +34,14 @@ namespace engine {
         public:
             RenderObject(std::string filePath, uint __sWidth, uint __sHeight);
             RenderObject(std::string filePath);
+            RenderObject();
             virtual ~RenderObject();
 
             SDL_Texture* getTexture();
             SDL_Surface* getSurface();
             SDL_Point getPosition();
             SDL_Rect getTarget();
-            SDL_Rect getClip();
+            SDL_Rect* getClip();
             SDL_Point getRotatePoint();
             SDL_RendererFlip getFlip();
             double getAngle();
@@ -54,17 +55,19 @@ namespace engine {
             void setAlignment(RenderAlignment newAlignment);
             void resetClip();
             void setTexture(SDL_Texture* tex);
+            void setSurface(SDL_Surface* __surface);
             void setFlip(SDL_RendererFlip __flip);
             void hide();
             void unhide();
             
-        private:
-            
             SDL_Texture* texture;
             SDL_Surface* surface;
+
+        private:
+            
             SDL_Point position;
             SDL_Rect target;
-            SDL_Rect clip;
+            SDL_Rect* clip;
             SDL_Point rotatePoint;
             SDL_RendererFlip flip;
             double rotateAngle;

@@ -45,10 +45,11 @@ RenderObject::RenderObject(std::string filePath, uint __sWidth, uint __sHeight) 
     target.w = width;
     target.h = height;
 
-    clip.x = 0;
-    clip.y = 0;
-    clip.w = width;
-    clip.h = height;
+    clip = new SDL_Rect;
+    clip->x = 0;
+    clip->y = 0;
+    clip->w = width;
+    clip->h = height;
 
 }
 
@@ -83,11 +84,28 @@ RenderObject::RenderObject(std::string filePath) {
     target.w = width;
     target.h = height;
 
-    clip.x = 0;
-    clip.y = 0;
-    clip.w = width;
-    clip.h = height;
+    clip = new SDL_Rect;
+    clip->x = 0;
+    clip->y = 0;
+    clip->w = width;
+    clip->h = height;
 
+}
+
+RenderObject::RenderObject() {
+    texture = nullptr;
+    surface = nullptr;
+    alignment = CENTER;
+    flip = SDL_FLIP_NONE;
+    rotateAngle = 0;
+    hidden = false;
+    position.x = 0;
+    position.y = 0;
+    target.x = 0;
+    target.y = 0;
+    target.w = 0;
+    target.h = 0;
+    clip = nullptr;
 }
 
 /**
@@ -152,8 +170,8 @@ void RenderObject::setScale(uint w, uint h) {
 */
 void RenderObject::setClip(uint x, uint y) {
 
-    clip.x = x;
-    clip.y = y;
+    clip->x = x;
+    clip->y = y;
 
 }
 
@@ -161,8 +179,8 @@ void RenderObject::setClip(uint x, uint y) {
  * Reset the RenderObject clip to 
 */
 void RenderObject::resetClip() {
-    clip.x = 0;
-    clip.y = 0;
+    clip->x = 0;
+    clip->y = 0;
 }
 
 /**
@@ -187,6 +205,22 @@ void RenderObject::setTexture(SDL_Texture* tex) {
         surface = nullptr;
     }
 
+}
+
+/**
+ * Set the surface of the RenderObject
+ * 
+ * Should be mainly called to set the surface from child classes who do not have access to the pointer
+ * 
+ * @param __surface the surface to assign to the RenderObject - CANNOT BE NULL
+*/
+void RenderObject::setSurface(SDL_Surface* __surface) {
+
+    if(__surface == nullptr) return;
+    if(surface != nullptr) SDL_FreeSurface(__surface);
+
+    surface = __surface;
+    
 }
 
 /**
@@ -226,7 +260,7 @@ SDL_Surface* RenderObject::getSurface() {
  * The clip defines what section of the objects texture should be displayed. 
  * If it is NULL, the full texture will be displayed. 
 */
-SDL_Rect RenderObject::getClip() {
+SDL_Rect* RenderObject::getClip() {
     return clip;
 }
 
@@ -317,5 +351,6 @@ RenderObject::~RenderObject() {
         SDL_FreeSurface(surface);
         surface = nullptr;
     }
+    if(clip != nullptr) delete clip;
 
 }

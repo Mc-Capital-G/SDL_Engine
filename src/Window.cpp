@@ -74,11 +74,10 @@ void Window::render(RenderObject* obj) {
 		obj->setTexture(newTex);
 	}
 
-	SDL_Rect tClip = obj->getClip();
 	SDL_Rect tTarget = obj->getTarget();
 	SDL_Point tRotate = obj->getRotatePoint();
 
-	SDL_RenderCopyEx(renderer, obj->getTexture(), &tClip, &tTarget, obj->getAngle(), &tRotate, obj->getFlip());
+	SDL_RenderCopyEx(renderer, obj->getTexture(), obj->getClip(), &tTarget, obj->getAngle(), &tRotate, obj->getFlip());
 
 }
 

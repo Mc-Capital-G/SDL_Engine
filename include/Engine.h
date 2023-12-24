@@ -14,10 +14,9 @@
 #include "Menu.h"
 #include "Button.h"
 #include "InputHandler.h"
-#include "TextBox.h"
+#include "Text.h"
 #include "Level.h"
 #include "LevelManager.h"
 #include "Timer.h"
-#include "SoundManager.h"
 
 #endif
