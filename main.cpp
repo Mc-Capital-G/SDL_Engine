@@ -7,7 +7,7 @@ int main(int argc, char** argv) {
     engine::Window GameWindow("Game");
     engine::InputHandler handler;
 
-    engine::Text TitleTest("This is some test text!", "../PublicPixel.ttf", 16, {255, 0, 0, 0});
+    engine::Text TitleTest("This is some test text!", "../PublicPixel.ttf", 16, {0, 0, 0, 0});
     TitleTest.setAlignment(engine::RenderAlignment::TOP_LEFT);
     TitleTest.setPosition(100, 100);
 

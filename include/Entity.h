@@ -12,6 +12,7 @@
 #include <SDL.h>
 
 #include "GameObject.h"
+#include "Vector2.h"
 
 namespace engine {
 
@@ -28,6 +29,8 @@ namespace engine {
         private:
             int health;
             uint typeID;
+            Vector2<int> velocity;
+            Vector2<int> acceleration;
     };
 
 }

@@ -13,7 +13,6 @@
 #define __GAMEOBJECT_H__
 
 #include "RenderObject.h"
-#include "Vector2.h"
 #include "Timer.h"
 
 namespace engine {
@@ -21,17 +20,16 @@ namespace engine {
     class GameObject : public RenderObject {
 
         public:
-            GameObject(std::string filePath);
-            GameObject(std::string filePath, uint __sWidth, uint __sHeight);
+            GameObject(std::string filePath, uint __typeID);
+            GameObject(std::string filePath, uint __sWidth, uint __sHeight, uint __typeID);
             virtual void update() = 0;
             bool hasCollision();
+            void setCollision(bool __collision);
             SDL_Rect getHitbox();
-            Vector2<int> getVelocity();
 
             bool collision;
             SDL_Rect hitbox;
-            Vector2<int> velocity;
-            Vector2<int> acceleration;
+            uint typeID;
             Timer timer;
             
     };

@@ -18,25 +18,27 @@ using namespace engine;
  * Initialize the GameObject. All pointers are initialized as nullptr.
  * @param filePath just forwards to the RenderObject's constructor
  * @param __sWidth explicity declares the width of the texture for the object, used for children that require such a definition
- * @param __sHeight explicity declares the height of the texture for the object, used for children that require such a definition
+ * @param __sHeight explicity declares the height of the texture for the object, used for children that require such a 
+ * @param __typeID the typeID of the object - will represent what specific child of GameObject the object is
 */
-GameObject::GameObject(std::string filePath, uint __sWidth, uint __sHeight) : RenderObject(filePath, __sWidth, __sHeight) {
+GameObject::GameObject(std::string filePath, uint __sWidth, uint __sHeight, uint __typeID) : RenderObject(filePath, __sWidth, __sHeight) {
 
     hitbox = getTarget();
-    velocity.x = 0;
-    velocity.y = 0;
+    typeID = __typeID;
+    collision = true;
 
 }
 
 /**
  * Initialize the GameObject. All pointers are initialized as nullptr.
  * @param filePath just forwards to the RenderObject's constructor
+ * @param __typeID the typeID of the object - will represent what specific child of GameObject the object is
 */
-GameObject::GameObject(std::string filePath) : RenderObject(filePath) {
+GameObject::GameObject(std::string filePath, uint __typeID) : RenderObject(filePath) {
 
     hitbox = getTarget();
-    velocity.x = 0;
-    velocity.y = 0;
+    typeID = __typeID;
+    collision = true;
 
 }
 
@@ -48,15 +50,13 @@ SDL_Rect GameObject::getHitbox() {
 }
 
 /**
- * Get the object's velocity.
-*/
-Vector2<int> GameObject::getVelocity() {
-    return velocity;
-}
-
-/**
  * See if the GameObject has collision
 */
 bool GameObject::hasCollision() {
     return collision;
+}
+
+/** Set the ocject's collision */
+void GameObject::setCollision(bool __collision) {
+    collision = __collision;
 }

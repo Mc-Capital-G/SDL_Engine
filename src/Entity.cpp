@@ -23,12 +23,16 @@ using namespace engine;
  * @param __sHeight the height of the entity's sprite
  * @param __typeID a number representing the type of entity. Specific numbers will be associated with children of this class
 */
-Entity::Entity(std::string filePath, int __health, uint __sWidth, uint __sHeight, uint __typeID) : GameObject(filePath, __sWidth, __sHeight) {
+Entity::Entity(std::string filePath, int __health, uint __sWidth, uint __sHeight, uint __typeID) : GameObject(filePath, __sWidth, __sHeight, __typeID) {
 
     health = __health;
     typeID = __typeID;
 
     timer.start();
+    velocity.x = 0;
+    velocity.y = 0;
+    acceleration.x = 0;
+    acceleration.y = 0;
 
 }
 
